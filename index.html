@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Internship Test</title>
+    <style>
+        body {
+            padding: 40px 40px;
+        }
+
+        /* Form */
+        .form-div {
+            display: flex;
+            flex-direction: column;
+            width: 400px
+        }
+        .form-tag {
+            margin-bottom: 5px;
+        }
+        .form-input {
+            margin-bottom: 15px;
+        }
+
+        
+    </style>
+</head>
+<body>
+    <h1>Bài 1</h1>
+    <p>Bật tag console để xem kết quả.</p>
+    <h1>Bài 2</h1>
+    <p>Mở json-server để chạy.</p>
+    <form action="" class="form">
+        <div class="form-div">
+            <label for="fullname" class="form-tag">Họ và tên</label>
+            <input id="fullname" name="fullname" type="text" placeholder="Họ và tên của bạn" class="form-input">
+        </div>
+
+        <div class="form-div">
+            <label for="email" class="form-tag">Email</label>
+            <input id="email" name="email" type="text" placeholder="Địa chỉ email của bạn" class="form-input">
+        </div>
+
+        <div class="form-div">
+            <label for="phone" class="form-tag">Số điện thoại</label>
+            <input id="phone" name="phone" type="tel" placeholder="Số điện thoại của bạn" class="form-input">
+        </div>
+
+        <div class="form-div">
+            <label for="" class="form-tag">Nội dung liên hệ</label>
+            <textarea name="message" id="message" cols="30" rows="10" placeholder="Vui lòng để lại lời nhắn" class="form-input"></textarea>
+        </div>
+
+        <button type="button" class="form-submit">Submit</button>
+        <button type="reset" class="form-clear">Clear</button>
+    </form>
+
+    <script type="text/javascript">
+        // Bài 1a
+        let findMax5 = [14,12,38,17,10,36,12,29,45,34,48,22]
+        findMax5.sort((a, b) => b - a)
+        console.log(findMax5.slice(0, 5))
+
+        // Bài 1b
+        function take_duplicate_element(array, size){
+        let result = []
+        let count = 0
+        for (let i = 0; i < size - 1; ++i) {
+            for (let j = i + 1; j < size; ++j) {
+                if (array[i] == array[j]) {
+                    /* Tìm thấy phần tử trùng thì thêm vào mảng kết quả */
+                    result[count]=array[i]
+                    ++count
+                }
+            }
+        }
+        return result
+        }
+        /* Kiểm tra phần tử trùng nhau */
+        let findFrequent = [false, "up", "down", "left", "right", true, false]
+        let result1 = take_duplicate_element(findFrequent, findFrequent.length)
+        console.log(result1)
+
+        // Bài 2
+        let formApi = 'http://localhost:3000/form'
+        function createForm(data, callback) {
+            let options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                    },
+                body: JSON.stringify(data)
+            }
+            fetch(formApi, options)
+                .then((response) => response.json())
+                .then(callback)
+        }
+        let createBtn = document.querySelector(".form-submit")
+        createBtn.onclick = () => {
+            let fullname = document.querySelector('input[name="fullname"]').value
+            let email = document.querySelector('input[name="email"]').value
+            let phone = document.querySelector('input[name="phone"]').value
+            let message = document.querySelector('textarea[name="message"]').value
+            let formData = {
+                fullname: fullname,
+                email: email,
+                phone: phone,
+                message: message
+            }
+            createForm(formData)
+        }
+    </script>
+</body>
+</html>
